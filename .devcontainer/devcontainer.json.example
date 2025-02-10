@@ -1,11 +1,11 @@
 {
-    "name": "project_repository",
-    "dockerComposeFile": [
-        "./../docker-compose.yml"
-    ],
-    "service": "php",
-    "workspaceFolder": "/var/www/html",
-    "extensions": [
+  "name": "project_repository",
+  "dockerComposeFile": ["./../docker-compose.yml"],
+  "service": "php",
+  "workspaceFolder": "/var/www/html",
+  "customizations": {
+    "vscode": {
+      "extensions": [
         "xdebug.php-debug",
         "bmewburn.vscode-intelephense-client",
         "oderwat.indent-rainbow",
@@ -20,19 +20,22 @@
         "ecmel.vscode-html-css",
         "yzhang.markdown-all-in-one",
         "PKief.material-icon-theme",
-    ],
-    "settings": {
+        "GitHub.copilot"
+      ],
+      "settings": {
         "[php]": {
-        "editor.formatOnSave": true,
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.defaultFormatter": "junstyle.php-cs-fixer"
+          "editor.formatOnSave": true,
+          "editor.insertSpaces": true,
+          "editor.tabSize": 4,
+          "editor.defaultFormatter": "junstyle.php-cs-fixer"
         },
         "php-cs-fixer.executablePath": "/var/www/html/vendor/bin/php-cs-fixer",
         "[blade]": {
-        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+          "editor.defaultFormatter": "shufo.vscode-blade-formatter"
         },
         "bladeFormatter.format.sortTailwindcssClasses": true,
         "bladeFormatter.format.wrapAttributes": "preserve"
+      }
     }
+  }
 }
