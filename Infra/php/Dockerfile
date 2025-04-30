@@ -6,7 +6,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install mysqli pdo_mysql opcache \
+    && composer global require laravel/installer \
     && a2enmod rewrite
+
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
 
 COPY ./php.ini /usr/local/etc/php/
 COPY ./000-default.conf /etc/apache2/sites-available/
