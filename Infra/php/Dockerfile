@@ -7,16 +7,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install mysqli pdo_mysql opcache \
     && composer global require laravel/installer \
-    && a2enmod rewrite \
+    && (type -p wget >/dev/null || (apt-get update && apt-get install wget -y)) \
     && mkdir -p -m 755 /etc/apt/keyrings \
-    && out=$(mktemp) \
-    && wget -nv -O $out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     && cat $out > /etc/apt/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && mkdir -p -m 755 /etc/apt/sources.list.d \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list \
     && apt-get update \
-    && apt-get install -y gh \
-    && apt-get install -y default-jre graphviz fonts-noto-core fonts-noto-cjk
+    && apt-get install gh -y \
+    && a2enmod rewrite
 
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
 
