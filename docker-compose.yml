@@ -4,18 +4,23 @@ services:
   php:
     build: ./${DOCKER_PATH}
     container_name: ${CONTAINER_NAME}
-    ports:
-      - ${HOST_PORT}:${CONTAINER_PORT}
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      LETSENCRYPT_TEST: ${LETSENCRYPT_TEST}
+      CERT_NAME: ${CERT_NAME}
+      TZ: ${TZ}
     volumes:
       - ./${REPOSITORY}:/var/www/html
       - vendor-store:/var/www/html/vendor
     networks:
       - my_laravel_network
       - my_infra_network
+      - my_proxy_network
 
 volumes:
   vendor-store:
-
 
 networks:
   my_laravel_network:
@@ -23,3 +28,6 @@ networks:
   my_infra_network:
     external: true
     name: my_infra_network
+  my_proxy_network:
+    external: true
+    name: my_proxy_network
